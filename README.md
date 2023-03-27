@@ -2,7 +2,7 @@
 
 Visual representation of a slider-crank Position given the crank, connecting rod and offset dimensions.
 
-Deployed at <slider-crank.fossengineer.com>
+Deployed at <https://slider-crank.fossengineer.com>
 
 ## Powered Thanks To
 
