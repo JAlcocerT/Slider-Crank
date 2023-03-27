@@ -6,15 +6,12 @@ from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 
-
 import pandas as pd
 import numpy as np
 import sympy as sp
 
 from scipy.optimize import fsolve
 from math import sin, cos, radians
-
-#from jupyter_dash import JupyterDash
 
 
 def symbolic_rotation_matrix(angle_degrees_symbol):
@@ -39,9 +36,6 @@ def symbolic_rotation_matrix(angle_degrees_symbol):
 
     return matrix
 
-# from scipy.optimize import fsolve
-# import sympy as sp
-# from math import sin, cos, radians
 
 def slider_crank_position(l2, l3, offset, angle_deg_2):
 
@@ -124,15 +118,11 @@ def slider_crank_position(l2, l3, offset, angle_deg_2):
     # Use fsolve to find the solution with the initial estimates
     initial_estimates = [0,0,0, 0, 0, 0, 0, 0, 1, 1, 0]
 
-   # f = sp.lambdify([(Ry_2, Ry_3, Ry_4, Rx_2, Rx_3, Rx_4, angle_deg_3, angle_deg_4)], C_q)
-   # f = sp.lambdify([(Rx_1,Rx_2,Rx_3,Rx_4,Ry_1,Ry_2,Ry_3,Ry_4,angle_deg_1,angle_deg_3,angle_deg_4)], C_q)
     f = sp.lambdify([(Rx_1,Ry_1,angle_deg_1,Rx_2,Ry_2,Rx_3,Ry_3,angle_deg_3,Rx_4,Ry_4,angle_deg_4)], C_q)
     solution = fsolve(f, initial_estimates)
 
     return solution
 
-import numpy as np
-import plotly.graph_objs as go
 
 def create_animation(l2, l3,offset):
     
@@ -141,8 +131,11 @@ def create_animation(l2, l3,offset):
     fig = make_subplots(rows=1, cols=1, specs=[[{'type': 'scatter'}]])
 
     # Set the range for axes
-    fig.update_xaxes(range=[-10, 15], constrain="domain", scaleanchor="y")
-    fig.update_yaxes(range=[-10, 15], scaleanchor="x")
+    # fig.update_xaxes(range=[-10, 15], constrain="domain", scaleanchor="y")
+    # fig.update_yaxes(range=[-10, 15], scaleanchor="x")
+    max_range = l2 + l3 +1
+    fig.update_xaxes(range=[-max_range, max_range], constrain="domain", scaleanchor="y")
+    fig.update_yaxes(range=[-l2*1.1, l2*1.1], scaleanchor="x")
 
     # Animation settings
     animation_settings = dict(frame=dict(duration=100, redraw=True), fromcurrent=True)
@@ -194,8 +187,8 @@ def create_animation(l2, l3,offset):
     fig.update_layout(title_text="Slider-Crank Mechanism Animation", title_x=0.5)
 
     #add the name of the axis
-    fig.update_xaxes(title_text="X (m)")
-    fig.update_yaxes(title_text="Y (m)")
+    fig.update_xaxes(title_text="X")
+    fig.update_yaxes(title_text="Y")
 
     # Set the layout for the animation
     fig.update_layout(updatemenus=[dict(type='buttons', showactive=False, buttons=[dict(label='Play', method='animate', args=[None, animation_settings])])])
@@ -206,13 +199,16 @@ def create_animation(l2, l3,offset):
 
 
 
+
 app = dash.Dash(__name__, external_stylesheets=['https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'])
 #app = JupyterDash(__name__, external_stylesheets=['https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'])
 
 app.layout = html.Div([
-    html.Label("l2:"),
+    html.H1("Slider and Crank", style={'textAlign': 'center', 'fontWeight': 'bold', 'margin': '20px 0'}), 
+    html.H2("Analyzing the Piston Position", style={'textAlign': 'center', 'fontWeight': 'bold', 'margin': '20px 0'}),    
+    html.Label("Crank:"),
     dcc.Input(id="l2-input", type="number", value=5),
-    html.Label("l3:"),
+    html.Label("Connecting Rod:"),
     dcc.Input(id="l3-input", type="number", value=7),
     html.Label("offset:"),
     dcc.Input(id="offset-input", type="number", value=1),
@@ -221,11 +217,13 @@ app.layout = html.Div([
     dcc.Graph(id="animation-graph"),
     dcc.Graph(id="piston-graph"),
     html.Div([
-    html.H4("About"),
-    html.A("My Blog - FossEngineer", href="https://fossengineer.com", target="_blank"),
-    html.Br(),
-    html.A("Source Code", href="https://github.com/JAlcocerT/Slider-Crank", target="_blank"),
-], style={'float': 'right'})
+            html.H4("About"),
+            html.A("My Blog - FOSSEngineer ", href="https://fossengineer.com", target="_blank"),
+            html.Br(),
+            html.A("Source Code", href="https://github.com/JAlcocerT/Slider-Crank", target="_blank"),
+            #html.Br(),
+            #html.Img(src='/assets/FOSSEngineer.png', style={'height': '50px', 'width': 'auto'}),  # Adjust height and width as needed
+        ], style={'float': 'right'}) #style={'position': 'fixed', 'bottom': '0px', 'right': '85px'})
 ])
 
 @app.callback(
