@@ -4,6 +4,6 @@ plotly==5.11.0
 pandas==1.2.4
 numpy==1.22.4
 
-math==1.0.1
+#math==1.0.1 #it is built in python
 sympy==1.7.1
 scipy==1.7.1
