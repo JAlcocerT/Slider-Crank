@@ -3,6 +3,8 @@ from dash import dcc
 from dash import html
 
 from dash.dependencies import Input, Output
+from dash.exceptions import PreventUpdate
+
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 
@@ -210,7 +212,7 @@ app.layout = html.Div([
     dcc.Input(id="l2-input", type="number", value=5),
     html.Label("Connecting Rod:"),
     dcc.Input(id="l3-input", type="number", value=7),
-    html.Label("offset:"),
+    html.Label("Offset:"),
     dcc.Input(id="offset-input", type="number", value=1),
     html.Button("Update", id="update-button"),
     html.Div(id="range-info"),
@@ -225,6 +227,15 @@ app.layout = html.Div([
             #html.Img(src='/assets/FOSSEngineer.png', style={'height': '50px', 'width': 'auto'}),  # Adjust height and width as needed
         ], style={'float': 'right'}) #style={'position': 'fixed', 'bottom': '0px', 'right': '85px'})
 ])
+
+@app.callback(
+    Output("offset-input", "max"),
+    [Input("l2-input", "value")]
+)
+def update_offset_max(l2_value):
+    if l2_value is None:
+        raise PreventUpdate
+    return l2_value
 
 @app.callback(
     [Output("piston-graph", "figure"), Output("range-info", "children"), Output("animation-graph", "figure")],
