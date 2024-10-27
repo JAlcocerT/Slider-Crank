@@ -1,0 +1,21 @@
+FROM python:3.8
+
+# Copy local code to the container image.
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . ./
+#source-destination
+
+# Install production dependencies.
+RUN pip install -r requirements.txt
+
+EXPOSE 8051
+
+# Run the Streamlit app
+CMD ["streamlit", "run", "/app/app/slidercrank-streamlit.py"]
+
+
+#docker build -t slider-crank -f Dockerfile_Streamlit .
+#docker run -p 8502:8501 slider-crank
+#docker run -p 8502:8501 slider-crank tail -f /dev/null
+# streamlit run slidercrank-streamlit.py

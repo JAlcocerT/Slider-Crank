@@ -1,8 +1,8 @@
 # Slider-Crank
 
-Visual representation of a slider-crank Position given: the crank, connecting rod and offset dimensions.
+Visual representation of a **slider-crank Position** given: the crank, connecting rod and offset dimensions.
 
-Deployed at <https://slider-crank.fossengineer.com>
+* Docs -
 
 ## Features
 
