@@ -1,0 +1,32 @@
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global noise overlay using SVG feTurbulence — eliminates flat digital look */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Magnetic button base */
+.btn-magnetic {
+  @apply overflow-hidden relative transition-transform;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.btn-magnetic:hover { transform: scale(1.03); }
+.btn-magnetic .btn-bg {
+  @apply absolute inset-0 translate-y-full transition-transform duration-300;
+}
+.btn-magnetic:hover .btn-bg { transform: translateY(0); }
+
+/* Interactive lift */
+a, button { transition: transform 0.2s ease; }
+a:hover, button:hover { transform: translateY(-1px); }
+
+html { scroll-behavior: smooth; }

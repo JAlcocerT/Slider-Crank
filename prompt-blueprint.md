@@ -150,3 +150,14 @@ Card 3: Cursor Protocol Scheduler
 5. Generate Protocol steps from brand process.
 6. Scaffold project: npm create vite@latest, install deps, write all files.
 7. Ensure animations and interactions work and images load.
+
+## Architecture Options (Backend vs Static)
+- Option A: Pure CSR (JS equations). Port the slider-crank equations to JavaScript and compute in the browser.
+- Option B: Precompute + Ship JSON. Use Python notebooks/scripts to generate datasets, store as JSON, and render statically.
+- Option C: Python API. Keep Python as source of truth and expose endpoints (FastAPI/Flask) for dynamic computation.
+- Recommendation: Start with Option A or B for the landing page demo; add Option C if you need high-fidelity or parameter-heavy computation.
+
+## Decision Checklist (Choose A, B, or C)
+- Choose A if you want instant, fully static hosting and the equations are light and stable.
+- Choose B if you want Python accuracy but still want a static site with no runtime backend.
+- Choose C if inputs are wide-ranging, computations are heavy, or you need authoritative server-side results.

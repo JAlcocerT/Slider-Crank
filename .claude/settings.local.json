@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /c/Users/j--e-/Desktop/Slider-Crank/landing && npm install 2>&1 | tail -5)",
+      "Bash(cd /c/Users/j--e-/Desktop/Slider-Crank/landing && npm run build 2>&1)",
+      "Bash(cd /c/Users/j--e-/Desktop/Slider-Crank/landing && node --input-type=module --eval \"\nimport { readFileSync } from 'fs'\nconst p = readFileSync\\('./src/components/Protocol.jsx', 'utf8'\\)\n// Check no stray 'require_useState' or double-export\nconsole.log\\('has require_useState:', p.includes\\('require_useState'\\)\\)\nconsole.log\\('has export default:', \\(p.match\\(/export default/g\\) || []\\).length\\)\nconsole.log\\('has ProtocolInner re-export:', p.includes\\('export { ProtocolInner as default }'\\)\\)\n\" 2>&1)",
+      "Bash(npm run:*)"
+    ]
+  }
+}
