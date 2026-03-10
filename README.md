@@ -2,7 +2,13 @@
 
 Visual representation of a **slider-crank Position** given: the crank, connecting rod and offset dimensions.
 
-* Docs -
+Deployed a CSR version to cloudflare pages: *feel free to play with the slider-crank at <https://multibodysystemdynamics.pages.dev/>
+
+```sh
+#cd landing
+npm run build
+npx wrangler pages deploy dist
+```
 
 ## Features
 
@@ -13,10 +19,10 @@ Visual representation of a **slider-crank Position** given: the crank, connectin
     * Range of motion of the piston (not intuitive with offsets >0)
     * Intake/Combustion vs Compression/Exhaust stroke's crank degrees (again, not intuitive when offset >0)
 
-### Work in Progress
+### Open Questions
 
 * Con-Rod angle evolution and angle range
-* When is the mechanism getting *bloqued*? - Spotting non compatible ranges of motions
+* When is the mechanism getting *blocked*? - Spotting non compatible ranges of motions
 * Velocities with Point Reference Approach
 * Acelerations with Point Reference Approach
 
