@@ -1,6 +1,8 @@
 Slider_Crank-Vel.ipynb
 Slider_Crank-Velocities.ipynb
 
+*.pyc
+
 # Firebase cache
 .firebase/
 
